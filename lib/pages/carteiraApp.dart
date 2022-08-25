@@ -74,9 +74,8 @@ class TelaInicialState extends State<TelaInicialWidget> {
                 ),
               ),
               Column(
-                children: <Widget>[
-                  Container(
-                    child: ListTile(
+                children: <Widget>[                  
+                     ListTile(
                       leading: Image.asset(
                         tabela[0].icone,
                         width: 30,
@@ -90,7 +89,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           children: [
                             Text(tabela[0].valor),
                             Text(
-                              '+' + tabela[0].variacao.toString() + '%',
+                              '+${tabela[0].variacao}%',
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -104,10 +103,9 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    child: ListTile(
+                    ),                  
+                  
+                     ListTile(
                       leading: Image.asset(
                         tabela[1].icone,
                         width: 30,
@@ -121,7 +119,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           children: [
                             Text(tabela[1].valor),
                             Text(
-                              '+' + tabela[1].variacao.toString() + '%',
+                              '+${tabela[1].variacao}%',
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -135,10 +133,9 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    child: ListTile(
+                    ),                  
+                  
+                     ListTile(
                       leading: Image.asset(
                         tabela[2].icone,
                         width: 30,
@@ -152,7 +149,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           children: [
                             Text(tabela[2].valor),
                             Text(
-                               tabela[2].variacao.toString() + '%',
+                               '${tabela[2].variacao}%' ,
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -166,8 +163,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
+                    ),                  
                 ],
               )
             ],
