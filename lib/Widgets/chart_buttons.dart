@@ -16,9 +16,8 @@ class ChartButtons extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(
                 const Color.fromARGB(255, 235, 231, 231)),
             minimumSize: MaterialStateProperty.all(const Size(40, 40)),
-            
-            //maximumSize: MaterialStateProperty.all(const Size(36, 36)),
 
+            //maximumSize: MaterialStateProperty.all(const Size(36, 36)),
           ),
           onPressed: () {
             onPressed();
