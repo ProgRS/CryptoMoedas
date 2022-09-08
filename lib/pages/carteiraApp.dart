@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/coin.dart';
 import '../repositories/coin_repository.dart';
+import 'moedas_detalhes_page.dart';
 
 class TelaInicialWidget extends StatefulWidget {
 
@@ -18,7 +20,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
     
     bool opacidade = true;
     String carteira = 'Carteira';
-    
+    List<Moeda> selecionadas = [];
     Widget listagemCrypto(int moeda){
          return
              Column(
@@ -43,13 +45,30 @@ class TelaInicialState extends State<TelaInicialWidget> {
                           ],
                         ),
                       ),
-                   
+
+                      selected: selecionadas.contains(tabela[moeda]),
+                    selectedTileColor: Colors.indigo[50],
+                    onLongPress: (){
+                         setState(() {
+                           (selecionadas.contains(tabela[moeda]))
+                               ? selecionadas.remove(tabela[moeda]) : selecionadas.add(tabela[moeda]);
+                         });
+                    },
+                    onTap: () => mostrarDetalhes(tabela[moeda]),
+                    
                   )
+                   
+                  
                 ],
          );
     }
 
- 
+ mostrarDetalhes(Moeda moeda){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (_) => MoedasDetalhesPage(moeda: moeda),
+         ),
+        );
+    }
 
     @override
   Widget build(BuildContext context){
