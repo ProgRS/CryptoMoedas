@@ -18,55 +18,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
   bool opacidade = true;
   String carteira = 'Carteira';
   List<Moeda> selecionadas = [];
-  Widget listagemCrypto(int moeda) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 0,
-        ),
-        ListTile(
-          leading: SizedBox(
-            width: 30,
-            child: Image.asset(tabela[moeda].icone),
-          ),
-          title: Text(tabela[moeda].sigla),
-          subtitle: Text(tabela[moeda].moeda),
-          trailing: AnimatedOpacity(
-            opacity: opacidade ? 1 : 0,
-            duration: const Duration(milliseconds: 800),
-            child: Column(
-              children: [
-                Text(tabela[moeda].valor),
-                Text(
-                  '${tabela[moeda].variacao}%',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: (tabela[moeda].variacao > 0)
-                          ? Colors.green
-                          : Colors.red,
-                      backgroundColor: (tabela[moeda].variacao > 0)
-                          ? Colors.green[50]
-                          : Colors.red[50]),
-                )
-              ],
-            ),
-          ),
-          selected: selecionadas.contains(tabela[moeda]),
-          selectedTileColor: Colors.indigo[50],
-          onLongPress: () {
-            setState(() {
-              (selecionadas.contains(tabela[moeda]))
-                  ? selecionadas.remove(tabela[moeda])
-                  : selecionadas.add(tabela[moeda]);
-            });
-          },
-          onTap: () => mostrarDetalhes(tabela[moeda]),
-        )
-      ],
-    );
-  }
-
+ 
   mostrarDetalhes(Moeda moeda) {
     Navigator.push(
       context,
@@ -140,11 +92,90 @@ class TelaInicialState extends State<TelaInicialWidget> {
                       ),
                     ),
                   )),
-              listagemCrypto(0),
-              listagemCrypto(1),
-              listagemCrypto(2),
+              _MyShinyWidget(0),
+              _MyShinyWidget(1),
+              _MyShinyWidget(2),
             ],
           ),
         ));
+  }
+}
+
+
+class _MyShinyWidget extends StatefulWidget {
+    int moeda  = 0;
+    
+
+
+
+   _MyShinyWidget(int i ){
+      this.moeda = i;
+
+   }
+
+  @override
+  State<_MyShinyWidget> createState() => _MyShinyWidgetState();
+}
+
+class _MyShinyWidgetState extends State<_MyShinyWidget> {
+
+
+    final tabela = MoedaRepository.tabela;
+
+    List<Moeda> selecionadas = [];
+
+
+
+    mostrarDetalhes(Moeda moeda) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (_) => MoedasDetalhesPage(moeda: moeda),
+      ),
+      );
+    }
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Column(
+        children: <Widget>[
+          Container(
+            height: 0,
+          ),
+          ListTile(
+            leading: SizedBox(
+              width: 30, child: Image.asset(tabela[widget.moeda].icone),),
+            title: Text(tabela[widget.moeda].sigla),
+            subtitle: Text(tabela[widget.moeda].moeda),
+            trailing: AnimatedOpacity(
+              opacity: TelaInicialState().opacidade ? 1 : 0,
+              duration: const Duration(milliseconds: 800),
+              child: Column(
+                children: [
+                  Text(tabela[widget.moeda].valor),
+                  Text('${tabela[widget.moeda].variacao}%',
+                    style: TextStyle(fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: (tabela[widget.moeda].variacao > 0)
+                            ? Colors.green
+                            : Colors.red,
+                        backgroundColor: (tabela[widget.moeda].variacao > 0) ? Colors
+                            .green[50] : Colors.red[50]
+                    ),)
+                ],
+              ),
+            ),
+            selected: selecionadas.contains(tabela[widget.moeda]),
+            selectedTileColor: Colors.indigo[50],
+            onLongPress: () {
+              setState(() {
+                (selecionadas.contains(tabela[widget.moeda]))
+                    ? selecionadas.remove(tabela[widget.moeda]) : selecionadas.add(
+                    tabela[widget.moeda]);
+              });
+            },
+            onTap: () => mostrarDetalhes(tabela[widget.moeda]),
+          )
+        ],
+      );
   }
 }
