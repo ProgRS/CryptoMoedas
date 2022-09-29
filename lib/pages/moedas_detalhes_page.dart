@@ -5,6 +5,8 @@ import '../models/coin.dart';
 import '../repositories/coin_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'conversion.dart';
+
 class MoedasDetalhesPage extends StatefulWidget {
   Moeda moeda;
   MoedasDetalhesPage({Key? key, required this.moeda}) : super(key: key);
@@ -308,7 +310,13 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           alignment: Alignment.center,
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ConversionCoin(),
+                            ));
+                      },
                       child: const Text(
                         "Converter Moeda",
                         style: TextStyle(
