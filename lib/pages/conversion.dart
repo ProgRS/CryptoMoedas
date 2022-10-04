@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,8 +7,6 @@ import '../Widgets/my_app_bar.dart';
 import '../Widgets/value_crypto.dart';
 import 'carteiraApp.dart';
 import 'sucess_convert.dart';
-
-
 
 class ConversionCoin extends StatefulWidget {
   final ConvertButton? buttonName;
@@ -82,7 +77,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                         key: _convertFron,
                         controller: _value,
                         style:
-                        const TextStyle(fontSize: 20, color: Colors.black),
+                            const TextStyle(fontSize: 20, color: Colors.black),
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Montante:"),
@@ -167,13 +162,8 @@ class _ConversionCoinState extends State<ConversionCoin> {
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromARGB(255, 255, 255, 255))),
                     onPressed: () {
-
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (_) =>  const TelaInicialWidget(),
-                      ),
-
-                      );
-
+                      Navigator.pushNamed(context, '/carteiraApp',
+                          arguments: "1");
                     },
                     child: const Text(
                       "Cancelar",
@@ -187,7 +177,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                     style: ButtonStyle(
                         alignment: Alignment.center,
                         backgroundColor:
-                        MaterialStateProperty.all(Colors.pink)),
+                            MaterialStateProperty.all(Colors.pink)),
                     onPressed: () {
                       if (double.parse(_valueReceive.text) >= 0) {
                         showModalBottomSheet(
@@ -197,9 +187,9 @@ class _ConversionCoinState extends State<ConversionCoin> {
                         showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) =>
-                            const AlertDialog(
-                              title: Text("Ops, algo deu errado!"),
-                            ));
+                                const AlertDialog(
+                                  title: Text("Ops, algo deu errado!"),
+                                ));
                       }
                     },
                     child: const Text(

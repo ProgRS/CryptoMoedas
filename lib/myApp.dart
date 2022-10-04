@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.pink,
       ),
-      home: TelaInicialWidget(),
+      routes: {
+          '/carteiraApp': (BuildContext context) => TelaInicialWidget()
+      },
+      initialRoute: '/carteiraApp',
     );
   }
 }

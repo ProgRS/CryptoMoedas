@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class DropdownList extends StatefulWidget {
@@ -15,21 +13,24 @@ class _DropdownListState extends State<DropdownList> {
   String selectCrypto = "Bitcoin";
 
   @override
-  Widget build(BuildContext context) {
-    final List<String> valueCoin = ['Bitcoin', 'Litecoin', 'Ethereum'];
+  Widget build(BuildContext context) {    
+    final Map<int, String> moedas = Map();
+    moedas[1] = "Bitcoin";
+    moedas[2] = "Litecoin";
+    moedas[3] = "Ethereum";
     return DropdownButtonFormField<String>(
       items: [
         DropdownMenuItem(
-          child: Text(valueCoin[0]),
-          value: valueCoin[0],
+          child: Text(moedas[1].toString()),
+          value: moedas[1],
         ),
         DropdownMenuItem(
-          child: Text(valueCoin[1]),
-          value: valueCoin[1],
+          child: Text(moedas[2].toString()),
+          value: moedas[2],
         ),
         DropdownMenuItem(
-          child: Text(valueCoin[2]),
-          value: valueCoin[2],
+          child: Text(moedas[3].toString()),
+          value: moedas[3],
         ),
       ],
       onChanged: (crypto) {
