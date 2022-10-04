@@ -311,11 +311,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink)),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const ConversionCoin(),
-                            ));
+                        
+                            Navigator.pushNamed(context, '/conversion', arguments: "2");
+                            
                       },
                       child: const Text(
                         "Converter Moeda",

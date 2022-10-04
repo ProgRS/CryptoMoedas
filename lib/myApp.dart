@@ -1,3 +1,4 @@
+import 'package:crypto/pages/conversion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       routes: {
-          '/carteiraApp': (BuildContext context) => TelaInicialWidget()
+          '/carteiraApp': (BuildContext context) => TelaInicialWidget(),
+          '/conversion': (BuildContext context) => ConversionCoin(),
       },
       initialRoute: '/carteiraApp',
     );
