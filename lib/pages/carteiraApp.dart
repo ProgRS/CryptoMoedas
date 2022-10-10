@@ -30,17 +30,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.wallet_travel), label: 'Carteiras'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.tune), label: 'Movimentações')
-        ],
-      ),
+    return Scaffold(      
       body: ListView(
         children: <Widget>[
           Container(

@@ -117,16 +117,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
       appBar: AppBar(
         title: const Text("Detalhes"),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.wallet_travel), label: 'Carteiras'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.tune), label: 'Movimentações')
-        ],
-      ),
+      
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
