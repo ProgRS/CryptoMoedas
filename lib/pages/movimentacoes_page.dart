@@ -1,6 +1,6 @@
-
-
+import 'package:crypto/repositories/moves_repository.dart';
 import 'package:flutter/material.dart';
+
 class MovimentacoesPage extends StatefulWidget {
   const MovimentacoesPage({Key? key}) : super(key: key);
 
@@ -9,70 +9,64 @@ class MovimentacoesPage extends StatefulWidget {
 }
 
 class _MovimentacoesPageState extends State<MovimentacoesPage> {
+  final moveTable = MovesRepository.tabela;
+  String titleMoviment = 'Movimentações';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white70,
-        title: Text('Movimentações',
+        appBar: AppBar(
+          backgroundColor: Colors.white70,
+          title: Text(
+            titleMoviment,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
-
-      ),
-
-      body:
-        SingleChildScrollView(
-           child: Column(
-             children: [
-               Movement(),
-               Movement(),
-               Movement(),
-               Movement(),
-               Movement(),
-             ],
-           ),
-        )
-    );
-    //);
+        body: ListView(         
+              children: [
+              Movement(moveTable, 0),
+              Movement(moveTable, 1),
+              Movement(moveTable, 2),
+              Movement(moveTable, 0),
+              Movement(moveTable, 1),
+              ],
+            ),
+         
+        );    
   }
 }
 
 class Movement extends StatelessWidget {
-  const Movement({Key? key}) : super(key: key);
+  final moveTable;
+  final int count;
+  const Movement(this.moveTable, this.count, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: <Widget> [
-        ListTile(
-          leading: Icon(Icons.compare_arrows_rounded),
-          subtitle: Text("11/04/2022"),
-          title: Text('1BTC'),
-          trailing: Column(
-            children: [
-              Title(
-                color: Colors.grey,
-                child: Text('18,44ETH',
-                  textAlign: TextAlign.center,
-                  textDirection: TextDirection.ltr,
-                  textWidthBasis:
-                  TextWidthBasis.longestLine,
-                  style: const TextStyle(
-                    height: 2,
-                  ),
-                ),
-
+    return ListTile(
+      leading: Icon(Icons.compare_arrows_rounded),
+      subtitle: Text(moveTable[this.count].data),
+      title: Text(moveTable[this.count].sigla),
+      trailing: Column(
+        children: [
+          Title(
+            color: Colors.grey,
+            child: Text(
+              '${moveTable[this.count].valor}' + moveTable[this.count].sigla,
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.ltr,
+              textWidthBasis: TextWidthBasis.longestLine,
+              style: const TextStyle(
+                height: 2,
               ),
-              Title(color: Colors.grey,
-                  child: Text('R\$0,00', style: TextStyle(color: Colors.grey)))
-            ],
+            ),
           ),
-        ),
-        Divider(color: Colors.grey,),
-      ],
+          Title(
+              color: Colors.grey,
+              child: Text(moveTable[this.count].valorConv,
+                  style: TextStyle(color: Colors.grey)))
+        ],
+      ),
     );
   }
 }
-
