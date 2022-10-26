@@ -7,6 +7,8 @@ import '../Widgets/my_app_bar.dart';
 import '../Widgets/value_crypto.dart';
 import 'carteiraApp.dart';
 import 'sucess_convert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class ConversionCoin extends StatefulWidget {
   final ConvertButton? buttonName;
@@ -19,7 +21,6 @@ class ConversionCoin extends StatefulWidget {
 class _ConversionCoinState extends State<ConversionCoin> {
   String selectCryptoConvert = "";
   String selectCryptoReceive = "";
-  String pagename = "Conversão de Moeda";
   final _convertFron = GlobalKey<FormState>();
   final _value = TextEditingController();
   final _receiveIn = GlobalKey<FormState>();
@@ -41,6 +42,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
 
   @override
   Widget build(BuildContext context) {
+    String pagename = AppLocalizations.of(context)!.nameCoinConvert;
     return Scaffold(
       appBar: PreferredSize(
           child: MyAppBar(pageName: pagename),
@@ -53,11 +55,11 @@ class _ConversionCoinState extends State<ConversionCoin> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const SizedBox(
+                 SizedBox(
                   width: 400.0,
                   height: 30.0,
                   child: Text(
-                    "Converter de:",
+                    AppLocalizations.of(context)!.nameConvert,
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -78,9 +80,9 @@ class _ConversionCoinState extends State<ConversionCoin> {
                         controller: _value,
                         style:
                             const TextStyle(fontSize: 20, color: Colors.black),
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: "Montante:"),
+                            labelText: AppLocalizations.of(context)!.nameAmount),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
@@ -124,11 +126,11 @@ class _ConversionCoinState extends State<ConversionCoin> {
                   ),
                 ]),
                 const Divider(),
-                const SizedBox(
+                SizedBox(
                   width: 400.0,
                   height: 30.0,
                   child: Text(
-                    "Para receber em:",
+                    AppLocalizations.of(context)!.nameConvertIn,
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -147,9 +149,9 @@ class _ConversionCoinState extends State<ConversionCoin> {
                       key: _receiveIn,
                       controller: _valueReceive,
                       style: const TextStyle(fontSize: 20, color: Colors.black),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: "Montante pós conversão:"),
+                          labelText: AppLocalizations.of(context)!.nameAmountAfter),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),
@@ -165,8 +167,8 @@ class _ConversionCoinState extends State<ConversionCoin> {
                       Navigator.pushNamed(context, '/carteiraApp',
                           arguments: "1");
                     },
-                    child: const Text(
-                      "Cancelar",
+                    child:  Text(
+                        AppLocalizations.of(context)!.nameBtnCancel,
                       style: TextStyle(color: Colors.pink),
                     ),
                   ),
@@ -192,8 +194,8 @@ class _ConversionCoinState extends State<ConversionCoin> {
                                 ));
                       }
                     },
-                    child: const Text(
-                      "Confirmar",
+                    child:  Text(
+                      AppLocalizations.of(context)!.nameBtnConfirm,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

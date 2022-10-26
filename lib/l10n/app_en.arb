@@ -1,0 +1,89 @@
+{
+  "helloWorld": "Hello World!",
+  "title" : "English Application",
+  "@helloWorld":{
+    "description": "title of the Coin"
+  },
+  "nameHome": "Page Home",
+  "@nameHome":{
+    "description": "title of the page home"
+  },
+  "namesHome": "Home",
+  "@namesHome":{
+    "description": "title of the page home"
+  },
+  "nameMovement": "Movement",
+  "@nameMovement": {
+    "description": "title of the page movement"
+  },
+  "nameInfo": "Informations",
+  "@nameInfo":{
+    "description": "title of the informations in detail's page"
+  },
+
+  "nameActualValue": "Current value",
+  "@nameActualValue": {
+    "description": "title of item current value"
+  },
+  "nameMarketCap": "Market capitalization",
+  "@nameMarketCap":{
+    "description": "title of the item market capitalization"
+  },
+  "nameMinValue": "Minimum value",
+  "@nameMinValue": {
+    "description": "title of the item minimum value"
+  },
+  "nameMaxValue": "Maximum value",
+  "@nameMaxValue":{
+    "description": "title of the item maximum value"
+  },
+  "nameDetails": "Details",
+  "@nameDetails":{
+    "description": "title of the page details"
+  },
+  "nameCoin": "Coin",
+  "@nameDetails":{
+    "description": "title of the Coin"
+  },
+  "nameWallet": "Wallet",
+  "@nameWallet": {
+    "description": "title of the page wallet"
+  },
+  "nameBtnConvert": "Currency Conversion",
+  "@nameBtnConvert": {
+    "description": "title of the page wallet"
+  },
+  "nameCoinConvert": "Currency conversion",
+  "@nameCoinConvert":{
+    "description": "title of the Coin"
+  },
+  "nameConvert": "Convert from",
+  "@nameConvert": {
+    "description": "title of the page wallet"
+  },
+  "nameConvertIn": "To receive in",
+  "@nameConvertIn": {
+    "description": "title of the page wallet"
+  },
+  "nameAmount": "Amount",
+  "@nameAmount": {
+    "description": "title of the page wallet"
+  },
+  "nameAmountAfter": "Amount after conversion",
+  "@nameAmountAfter": {
+    "description": "title of the page wallet"
+  },
+  "nameBtnCancel": "Cancel",
+  "@nameBtnCancel": {
+    "description": "title of the page wallet"
+  },
+  "nameBtnConfirm": "Confirm",
+  "@nameBtnConfirm": {
+    "description": "title of the page wallet"
+  },
+  "namemovement": "Movements",
+  "@namemovement": {
+    "description": "title of the page wallet"
+  }
+
+}

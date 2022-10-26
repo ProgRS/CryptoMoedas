@@ -1,5 +1,6 @@
 import 'package:crypto/repositories/moves_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovimentacoesPage extends StatefulWidget {
   const MovimentacoesPage({Key? key}) : super(key: key);
@@ -10,10 +11,11 @@ class MovimentacoesPage extends StatefulWidget {
 
 class _MovimentacoesPageState extends State<MovimentacoesPage> {
   final moveTable = MovesRepository.tabela;
-  String titleMoviment = 'Movimentações';
+
 
   @override
   Widget build(BuildContext context) {
+    String titleMoviment = AppLocalizations.of(context)!.nameMovement;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white70,

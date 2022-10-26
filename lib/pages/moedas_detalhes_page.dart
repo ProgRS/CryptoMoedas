@@ -4,6 +4,7 @@ import '../Widgets/chart_buttons.dart';
 import '../models/coin.dart';
 import '../repositories/coin_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'conversion.dart';
 
@@ -16,7 +17,7 @@ class MoedasDetalhesPage extends StatefulWidget {
 }
 
 class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
-  String pageName = "Detalhes";
+
   int index = 0;
   double totalCarteira = 0;
   double saldo = 0;
@@ -111,11 +112,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
+    String pageName = AppLocalizations.of(context)!.nameDetails;;
     const valorCarteira = 1000;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detalhes"),
+        title:  Text(pageName),
       ),
       
       body: SingleChildScrollView(
@@ -136,8 +138,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   verticalDirection: VerticalDirection.down,
                   children: [
                     ListTile(
-                      title: const Text(
-                        "Moeda",
+                      title: Text(
+                        AppLocalizations.of(context)!.nameCoin,
                         style: TextStyle(fontSize: 40, color: Colors.black),
                       ),
                       subtitle: Text(
@@ -240,9 +242,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                         ],
                       ),
                     ),
-                    const ListTile(
+                     ListTile(
                       title: Text(
-                        "Informações",
+                        AppLocalizations.of(context)!.nameInfo,
                         style: TextStyle(fontSize: 30, color: Colors.black),
                       ),
                     ),
@@ -256,12 +258,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           color: Color.fromARGB(255, 85, 83, 83),
                         ),
                       ),
-                      subtitle: const Text("Valor Atual"),
+                      subtitle: Text(AppLocalizations.of(context)!.nameActualValue),
                       trailing: Text("R\$${widget.moeda.valor_default}"),
                     ),
                     ListTile(
-                      title: const Text(
-                        "Cap de Mercado",
+                      title: Text(
+                        AppLocalizations.of(context)!.nameMarketCap,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -279,8 +281,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                       ),
                     ),
                     ListTile(
-                      title: const Text(
-                        "Valor Mínimo",
+                      title:  Text(
+                        AppLocalizations.of(context)!.nameMinValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -288,8 +290,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                       trailing: Text("R\$${widget.moeda.valor_default_min}"),
                     ),
                     ListTile(
-                      title: const Text(
-                        "Valor Máximo",
+                      title: Text(
+                        AppLocalizations.of(context)!.nameMaxValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -306,8 +308,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                             Navigator.pushNamed(context, '/conversion', arguments: "2");
                             
                       },
-                      child: const Text(
-                        "Converter Moeda",
+                      child:  Text(
+                        AppLocalizations.of(context)!.nameBtnConvert,
                         style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255)),
                       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/coin.dart';
 import '../repositories/coin_repository.dart';
 import 'moedas_detalhes_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TelaInicialWidget extends StatefulWidget {
   const TelaInicialWidget({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
   final tabela = MoedaRepository.tabela;
 
   bool opacidade = true;
-  String carteira = 'Carteira';
+
   List<Moeda> selecionadas = [];
 
   mostrarDetalhes(Moeda moeda) {
@@ -30,6 +31,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String carteira =  AppLocalizations.of(context)!.nameWallet;;
     return Scaffold(      
       body: ListView(
         children: <Widget>[

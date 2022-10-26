@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'carteiraApp.dart';
 import 'movimentacoes_page.dart';
 import 'page_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Navigatio extends StatefulWidget {
    final int selectedIndex ;
   const Navigatio(this.selectedIndex , {Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class NavigatioState extends State<Navigatio> {
                 body: PageView(
                 controller: pageViewController,
                 children: [
-                  NewPageScreen("Pagina Home"),
+                  NewPageScreen(AppLocalizations.of(context)!.nameHome),
                   TelaInicialWidget(),
                   MovimentacoesPage()
             ],
@@ -41,9 +42,9 @@ class NavigatioState extends State<Navigatio> {
 
                        items:<BottomNavigationBarItem> [
 
-                         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                         BottomNavigationBarItem(icon: Icon(Icons.wallet_travel), label: 'Carteiras'),
-                         BottomNavigationBarItem(icon: Icon(Icons.tune), label: 'Movimentações')
+                         BottomNavigationBarItem(icon: Icon(Icons.home), label: AppLocalizations.of(context)!.namesHome ),
+                         BottomNavigationBarItem(icon: Icon(Icons.wallet_travel), label: AppLocalizations.of(context)!.nameWallet),
+                         BottomNavigationBarItem(icon: Icon(Icons.tune), label: AppLocalizations.of(context)!.nameMovement)
                        ],
 
 
