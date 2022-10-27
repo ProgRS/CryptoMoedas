@@ -112,12 +112,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
-    String pageName = AppLocalizations.of(context)!.nameDetails;;
+    final pageName = AppLocalizations.of(context)!;
     const valorCarteira = 1000;
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text(pageName),
+        title:  Text(pageName.nameDetails),
       ),
       
       body: SingleChildScrollView(

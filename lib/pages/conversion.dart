@@ -42,10 +42,10 @@ class _ConversionCoinState extends State<ConversionCoin> {
 
   @override
   Widget build(BuildContext context) {
-    String pagename = AppLocalizations.of(context)!.nameCoinConvert;
+    final pagename = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
-          child: MyAppBar(pageName: pagename),
+          child: MyAppBar(pageName: pagename.nameCoinConvert),
           preferredSize: const Size(double.infinity, 50)),
       body: Container(
         alignment: Alignment.topLeft,

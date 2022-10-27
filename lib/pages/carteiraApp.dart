@@ -31,7 +31,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String carteira =  AppLocalizations.of(context)!.nameWallet;;
+    final carteira =  AppLocalizations.of(context)!;
     return Scaffold(      
       body: ListView(
         children: <Widget>[
@@ -43,7 +43,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  carteira,
+                  carteira.nameWallet,
                   style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
