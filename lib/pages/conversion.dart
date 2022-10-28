@@ -42,10 +42,10 @@ class _ConversionCoinState extends State<ConversionCoin> {
 
   @override
   Widget build(BuildContext context) {
-    final pagename = AppLocalizations.of(context)!;
+    final text = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
-          child: MyAppBar(pageName: pagename.nameCoinConvert),
+          child: MyAppBar(pageName: text.nameCoinConvert),
           preferredSize: const Size(double.infinity, 50)),
       body: Container(
         alignment: Alignment.topLeft,
@@ -59,7 +59,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                   width: 400.0,
                   height: 30.0,
                   child: Text(
-                    AppLocalizations.of(context)!.nameConvert,
+                    text.nameConvert,
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -82,7 +82,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                             const TextStyle(fontSize: 20, color: Colors.black),
                         decoration:  InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: AppLocalizations.of(context)!.nameAmount),
+                            labelText: text.nameAmount),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
@@ -130,7 +130,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                   width: 400.0,
                   height: 30.0,
                   child: Text(
-                    AppLocalizations.of(context)!.nameConvertIn,
+                    text.nameConvertIn,
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -151,7 +151,7 @@ class _ConversionCoinState extends State<ConversionCoin> {
                       style: const TextStyle(fontSize: 20, color: Colors.black),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: AppLocalizations.of(context)!.nameAmountAfter),
+                          labelText: text.nameAmountAfter),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),

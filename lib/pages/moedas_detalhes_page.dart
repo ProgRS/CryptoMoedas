@@ -112,12 +112,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final pageName = AppLocalizations.of(context)!;
+    final text = AppLocalizations.of(context)!;
     const valorCarteira = 1000;
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text(pageName.nameDetails),
+        title:  Text(text.nameDetails),
       ),
       
       body: SingleChildScrollView(
@@ -139,7 +139,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   children: [
                     ListTile(
                       title: Text(
-                        AppLocalizations.of(context)!.nameCoin,
+                        text.nameCoin,
                         style: TextStyle(fontSize: 40, color: Colors.black),
                       ),
                       subtitle: Text(
@@ -244,7 +244,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                     ),
                      ListTile(
                       title: Text(
-                        AppLocalizations.of(context)!.nameInfo,
+                        text.nameInfo,
                         style: TextStyle(fontSize: 30, color: Colors.black),
                       ),
                     ),
@@ -258,12 +258,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           color: Color.fromARGB(255, 85, 83, 83),
                         ),
                       ),
-                      subtitle: Text(AppLocalizations.of(context)!.nameActualValue),
+                      subtitle: Text(text.nameActualValue),
                       trailing: Text("R\$${widget.moeda.valor_default}"),
                     ),
                     ListTile(
                       title: Text(
-                        AppLocalizations.of(context)!.nameMarketCap,
+                        text.nameMarketCap,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -282,7 +282,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                     ),
                     ListTile(
                       title:  Text(
-                        AppLocalizations.of(context)!.nameMinValue,
+                        text.nameMinValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -291,7 +291,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                     ),
                     ListTile(
                       title: Text(
-                        AppLocalizations.of(context)!.nameMaxValue,
+                        text.nameMaxValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -309,7 +309,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                             
                       },
                       child:  Text(
-                        AppLocalizations.of(context)!.nameBtnConvert,
+                        text.nameBtnConvert,
                         style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255)),
                       ),

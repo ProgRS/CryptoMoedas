@@ -15,12 +15,12 @@ class _MovimentacoesPageState extends State<MovimentacoesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final titleMoviment = AppLocalizations.of(context)!;
+    final text = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white70,
           title: Text(
-            titleMoviment.nameMovement,
+            text.nameMovement,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
