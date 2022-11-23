@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../Widgets/chart_buttons.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../models/coin.dart';
 import '../repositories/coin_repository.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'conversion.dart';
+import 'sucess_convert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   Moeda moeda;
@@ -17,94 +18,161 @@ class MoedasDetalhesPage extends StatefulWidget {
 }
 
 class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
-
   int index = 0;
   double totalCarteira = 0;
   double saldo = 0;
   bool select = false;
   List<ChartData> data = <ChartData>[];
   ChartData data2 = ChartData(0, 0);
-  final tabela = MoedaRepository.tabela;
+  late List<Moeda> tabela;
+  late MoedaRepository moedas = MoedaRepository();
+  List<Map<String, dynamic>> precos = [];
+  List dadosCompletos = [];
+  double max = 0.0;
+  double min = 99999999999999999.99;
+  late Map<String, String> loc;
+  late MoedaRepository repositorio;
+  late NumberFormat real;
+  Widget grafico = Container();
+  bool graficoLoaded = false;
 
-  @override
-  initState() {
-    super.initState();
-    //data = generateSpots(50)
+  getGrafico() async {
+    precos = await moedas.getHistoricoMoeda(widget.moeda);
     int j;
-    if (widget.moeda.moeda == "Ethereum") {
+    if (widget.moeda.nome == "Ethereum") {
       j = 0;
-    } else if (widget.moeda.moeda == "Bitcoin") {
+    } else if (widget.moeda.nome == "Bitcoin") {
       j = 1;
     } else {
       j = 2;
     }
-    widget.moeda.valor_default = widget.moeda.valorAtual[0];
-    widget.moeda.variacao = widget.moeda.capMercado[0];
-    widget.moeda.valor_default_min = widget.moeda.valorMin[0];
-    widget.moeda.valor_default_max = widget.moeda.valorMax[0];
+    dadosCompletos = precos[0]['prices'];
+    dadosCompletos = dadosCompletos.reversed.map((item) {
+      double preco = double.parse(item[0]);
+      int time = int.parse(item[1].toString() + '000');
+      return [preco, time];
+    }).toList();
+
+    moedas.setupDadosTableMoeda();
+
     for (int i = 0; i < 5; i++) {
-      data2 = ChartData(tabela[j].dia_5[i], tabela[j].valor_5[i]);
+      data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
       data.add(data2);
     }
+
+    return precos;
+  }
+
+  @override
+  initState() {
+    super.initState();
+
+    widget.moeda.preco = widget.moeda.preco;
+    widget.moeda.variacao = widget.moeda.variacao;
+    getGrafico();
   }
 
   callDataCharts(int numberSpots, int posicao) {
     setState(() {
       if (numberSpots == 5) {
-        widget.moeda.valor_default = widget.moeda.valorAtual[0];
-        widget.moeda.variacao = widget.moeda.capMercado[0];
-        widget.moeda.valor_default_min = widget.moeda.valorMin[0];
-        widget.moeda.valor_default_max = widget.moeda.valorMax[0];
+        widget.moeda.preco = widget.moeda.preco;
+        widget.moeda.variacao = widget.moeda.variacao;
         data.clear();
+        dadosCompletos = precos[0]['prices'];
+        dadosCompletos = dadosCompletos.reversed.map((item) {
+          double preco = double.parse(item[0]);
+          int time = int.parse(item[1].toString() + '000');
+          return [preco, time];
+        }).toList();
+
         for (int i = 0; i < 5; i++) {
-          data2 =
-              ChartData(tabela[posicao].dia_5[i], tabela[posicao].valor_5[i]);
+          data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
+
+          if (dadosCompletos[i][0] > max) {
+            max = dadosCompletos[i][0];
+            print(max);
+          }
+          if (dadosCompletos[i][0] < min) {
+            min = dadosCompletos[i][0];
+          }
+
           data.add(data2);
         }
       } else if (numberSpots == 10) {
-        widget.moeda.valor_default = widget.moeda.valorAtual[1];
-        widget.moeda.variacao = widget.moeda.capMercado[1];
-        widget.moeda.valor_default_min = widget.moeda.valorMin[1];
-        widget.moeda.valor_default_max = widget.moeda.valorMax[1];
         data.clear();
+        dadosCompletos = precos[0]['prices'];
+        dadosCompletos = dadosCompletos.reversed.map((item) {
+          double preco = double.parse(item[0]);
+          int time = int.parse(item[1].toString() + '000');
+          return [preco, time];
+        }).toList();
         for (int i = 0; i < 10; i++) {
-          data2 =
-              ChartData(tabela[posicao].dia_10[i], tabela[posicao].valor_10[i]);
+          data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
           data.add(data2);
+          if (dadosCompletos[i][0] > max) {
+            max = dadosCompletos[i][0];
+          }
+
+          if (dadosCompletos[i][0] < min) {
+            min = dadosCompletos[i][0];
+          }
         }
       } else if (numberSpots == 15) {
-        widget.moeda.valor_default = widget.moeda.valorAtual[2];
-        widget.moeda.variacao = widget.moeda.capMercado[2];
-        widget.moeda.valor_default_min = widget.moeda.valorMin[2];
-        widget.moeda.valor_default_max = widget.moeda.valorMax[2];
         data.clear();
+        dadosCompletos = precos[0]['prices'];
+        dadosCompletos = dadosCompletos.reversed.map((item) {
+          double preco = double.parse(item[0]);
+          int time = int.parse(item[1].toString() + '000');
+          return [preco, time];
+        }).toList();
         for (int i = 0; i < 15; i++) {
-          data2 =
-              ChartData(tabela[posicao].dia_15[i], tabela[posicao].valor_15[i]);
+          data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
           data.add(data2);
+          if (dadosCompletos[i][0] > max) {
+            max = dadosCompletos[i][0];
+          }
+
+          if (dadosCompletos[i][0] < min) {
+            min = dadosCompletos[i][0];
+          }
         }
       } else if (numberSpots == 30) {
-        widget.moeda.valor_default = widget.moeda.valorAtual[3];
-        widget.moeda.variacao = widget.moeda.capMercado[3];
-        widget.moeda.valor_default_min = widget.moeda.valorMin[3];
-        widget.moeda.valor_default_max = widget.moeda.valorMax[3];
         data.clear();
+        dadosCompletos = precos[0]['prices'];
+        dadosCompletos = dadosCompletos.reversed.map((item) {
+          double preco = double.parse(item[0]);
+          int time = int.parse(item[1].toString() + '000');
+          return [preco, time];
+        }).toList();
         for (int i = 0; i < 30; i++) {
-          data2 =
-              ChartData(tabela[posicao].dia_30[i], tabela[posicao].valor_30[i]);
+          data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
           data.add(data2);
+          if (dadosCompletos[i][0] > max) {
+            max = dadosCompletos[i][0];
+          }
+
+          if (dadosCompletos[i][0] < min) {
+            min = dadosCompletos[i][0];
+          }
         }
       } else {
-        widget.moeda.valor_default = widget.moeda.valorAtual[4];
-        widget.moeda.variacao = widget.moeda.capMercado[4];
-        widget.moeda.valor_default_min = widget.moeda.valorMin[4];
-        widget.moeda.valor_default_max = widget.moeda.valorMax[4];
-
         data.clear();
+        dadosCompletos = precos[0]['prices'];
+        dadosCompletos = dadosCompletos.reversed.map((item) {
+          double preco = double.parse(item[0]);
+          int time = int.parse(item[1].toString() + '000');
+          return [preco, time];
+        }).toList();
         for (int i = 0; i < 50; i++) {
-          data2 =
-              ChartData(tabela[posicao].dia_50[i], tabela[posicao].valor_50[i]);
+          data2 = ChartData(dadosCompletos[i][1], dadosCompletos[i][0]);
           data.add(data2);
+          if (dadosCompletos[i][0] > max) {
+            max = dadosCompletos[i][0];
+          }
+
+          if (dadosCompletos[i][0] < min) {
+            min = dadosCompletos[i][0];
+          }
         }
       }
     });
@@ -112,14 +180,15 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final text = AppLocalizations.of(context)!;
+    final pageName = AppLocalizations.of(context)!;
     const valorCarteira = 1000;
-
+    moedas = context.watch<MoedaRepository>();
+    repositorio = context.read<MoedaRepository>();
     return Scaffold(
       appBar: AppBar(
-        title:  Text(text.nameDetails),
+        title: Text(pageName.nameDetails),
       ),
-      
+
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
@@ -139,11 +208,11 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   children: [
                     ListTile(
                       title: Text(
-                        text.nameCoin,
+                        AppLocalizations.of(context)!.nameCoin,
                         style: TextStyle(fontSize: 40, color: Colors.black),
                       ),
                       subtitle: Text(
-                        widget.moeda.moeda,
+                        widget.moeda.nome,
                         style:
                             const TextStyle(fontSize: 30, color: Colors.black),
                       ),
@@ -183,9 +252,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           ChartButtons(
                               buttonName: "5D",
                               onPressed: () {
-                                if (widget.moeda.moeda == "Ethereum") {
+                                if (widget.moeda.nome == "Ethereum") {
                                   callDataCharts(5, 0);
-                                } else if (widget.moeda.moeda == "Bitcoin") {
+                                } else if (widget.moeda.nome == "Bitcoin") {
                                   callDataCharts(5, 1);
                                 } else {
                                   callDataCharts(5, 2);
@@ -194,9 +263,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           ChartButtons(
                               buttonName: "10D",
                               onPressed: () {
-                                if (widget.moeda.moeda == "Ethereum") {
+                                if (widget.moeda.nome == "Ethereum") {
                                   callDataCharts(10, 0);
-                                } else if (widget.moeda.moeda == "Bitcoin") {
+                                } else if (widget.moeda.nome == "Bitcoin") {
                                   callDataCharts(10, 1);
                                 } else {
                                   callDataCharts(10, 2);
@@ -205,9 +274,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           ChartButtons(
                               buttonName: "15D",
                               onPressed: () {
-                                if (widget.moeda.moeda == "Ethereum") {
+                                if (widget.moeda.nome == "Ethereum") {
                                   callDataCharts(15, 0);
-                                } else if (widget.moeda.moeda == "Bitcoin") {
+                                } else if (widget.moeda.nome == "Bitcoin") {
                                   callDataCharts(15, 1);
                                 } else {
                                   callDataCharts(15, 2);
@@ -216,9 +285,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           ChartButtons(
                               buttonName: "30D",
                               onPressed: () {
-                                if (widget.moeda.moeda == "Ethereum") {
+                                if (widget.moeda.nome == "Ethereum") {
                                   callDataCharts(30, 0);
-                                } else if (widget.moeda.moeda == "Bitcoin") {
+                                } else if (widget.moeda.nome == "Bitcoin") {
                                   callDataCharts(30, 1);
                                 } else {
                                   callDataCharts(30, 2);
@@ -227,9 +296,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           ChartButtons(
                               buttonName: "50D",
                               onPressed: () {
-                                if (widget.moeda.moeda == "Ethereum") {
+                                if (widget.moeda.nome == "Ethereum") {
                                   callDataCharts(50, 0);
-                                } else if (widget.moeda.moeda == "Bitcoin") {
+                                } else if (widget.moeda.nome == "Bitcoin") {
                                   callDataCharts(50, 1);
                                 } else {
                                   callDataCharts(50, 2);
@@ -242,28 +311,29 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                         ],
                       ),
                     ),
-                     ListTile(
+                    ListTile(
                       title: Text(
-                        text.nameInfo,
+                        AppLocalizations.of(context)!.nameInfo,
                         style: TextStyle(fontSize: 30, color: Colors.black),
                       ),
                     ),
                     const Divider(),
                     ListTile(
                       title: Text(
-                        widget.moeda.moeda,
+                        widget.moeda.nome,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 85, 83, 83),
                         ),
                       ),
-                      subtitle: Text(text.nameActualValue),
-                      trailing: Text("R\$${widget.moeda.valor_default}"),
+                      subtitle:
+                          Text(AppLocalizations.of(context)!.nameActualValue),
+                      trailing: Text("R\$${widget.moeda.preco}"),
                     ),
                     ListTile(
                       title: Text(
-                        text.nameMarketCap,
+                        AppLocalizations.of(context)!.nameMarketCap,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
@@ -281,22 +351,22 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                       ),
                     ),
                     ListTile(
-                      title:  Text(
-                        text.nameMinValue,
+                      title: Text(
+                        AppLocalizations.of(context)!.nameMinValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
                       ),
-                      trailing: Text("R\$${widget.moeda.valor_default_min}"),
+                      trailing: Text("R\$${this.min}"),
                     ),
                     ListTile(
                       title: Text(
-                        text.nameMaxValue,
+                        AppLocalizations.of(context)!.nameMaxValue,
                         style: TextStyle(
                             fontSize: 20,
                             color: Color.fromARGB(255, 85, 83, 83)),
                       ),
-                      trailing: Text("R\$${widget.moeda.valor_default_max}"),
+                      trailing: Text("R\$${this.max}"),
                     ),
                     OutlinedButton(
                       style: ButtonStyle(
@@ -304,12 +374,15 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink)),
                       onPressed: () {
-                        
-                            Navigator.pushNamed(context, '/conversion', arguments: "2");
-                            
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ConversionCoin(),
+                          ),
+                        );
                       },
-                      child:  Text(
-                        text.nameBtnConvert,
+                      child: Text(
+                        AppLocalizations.of(context)!.nameBtnConvert,
                         style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255)),
                       ),
