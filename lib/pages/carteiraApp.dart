@@ -15,23 +15,23 @@ class TelaInicialWidget extends StatefulWidget {
 }
 
 class TelaInicialState extends State<TelaInicialWidget> {
-  late MoedaRepository dolar = MoedaRepository();
+  late CoinRepository coinRepository = CoinRepository();
   bool opacidade = true;
   late String nov;
-  List<Moeda> selecionadas = [];
+  List<Coin> selecionadas = [];
   int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
-    dolar = MoedaRepository();
+    coinRepository = CoinRepository();
   }
 
   @override
   Widget build(BuildContext context) {
-    final carteira = AppLocalizations.of(context)!;
-    dolar = MoedaRepository();
+    final text = AppLocalizations.of(context)!;
+    coinRepository = CoinRepository();
 
     return Scaffold(
         appBar: AppBar(
@@ -42,7 +42,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
         body: Center(
             child: ListView(
           children: <Widget>[
-            //
+
             Container(
               height: 30,
               margin: const EdgeInsets.all(10.00),
@@ -51,7 +51,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    carteira.nameWallet,
+                    text.nameWallet,
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -108,13 +108,13 @@ class _MyShinyWidget extends StatefulWidget {
 }
 
 class _MyShinyWidgetState extends State<_MyShinyWidget> {
-  late MoedaRepository moedas;
-  late MoedaRepository dolar = MoedaRepository();
 
-  List<Moeda> selecionadas = [];
+   CoinRepository coinRepository = CoinRepository();
+
+  List<Coin> selecionadas = [];
   bool opacidade = true;
 
-  mostrarDetalhes(Moeda moeda) {
+  mostrarDetalhes(Coin moeda) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -130,8 +130,8 @@ class _MyShinyWidgetState extends State<_MyShinyWidget> {
         Container(
           height: 0,
         ),
-        FutureBuilder<List<Moeda>>(
-          future: dolar.setupDadosTableMoeda(),
+        FutureBuilder<List<Coin>>(
+          future: coinRepository.setupDadosTableMoeda(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               snapshot.data![widget.moeda].sigla;

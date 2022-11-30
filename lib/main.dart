@@ -8,6 +8,6 @@ import 'repositories/coin_repository.dart';
 
 void main() => runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
-        create: (contex) => MoedaRepository(),
+        create: (contex) => CoinRepository(),
       )
     ], child: MyApp()));

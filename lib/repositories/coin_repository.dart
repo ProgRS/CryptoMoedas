@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../models/coin.dart';
 
-class MoedaRepository extends ChangeNotifier {
-  late List<Moeda> nova = [];
+class CoinRepository extends ChangeNotifier {
+  late List<Coin> nova = [];
 
   var data = [];
   MoedaRepository() {
@@ -18,19 +18,19 @@ class MoedaRepository extends ChangeNotifier {
 
   }
 
-  Future<Moeda> PegarMoeda() async {
+  Future<Coin> pegarMoeda() async {
     final res = await http
         .get(Uri.parse('https://api.coinbase.com/v2/assets/search?base=BRL'));
     var json = jsonDecode(res.body);
     final List<dynamic> moedas = json['data'];
     if (res.statusCode == 200) {
-      return Moeda.fromJson(moedas[0]);
+      return Coin.fromJson(moedas[0]);
     } else {
       throw Exception('FALHOU');
     }
   }
 
-  getHistoricoMoeda(Moeda moeda) async {
+  getHistoricoMoeda(Coin moeda) async {
     final response = await http.get(
       Uri.parse(
         'https://api.coinbase.com/v2/assets/prices/${moeda.baseId}?base=BRL',
@@ -44,18 +44,14 @@ class MoedaRepository extends ChangeNotifier {
         moeda['prices'];
       }));
 
-      precos.add(moeda['hour']);
-      precos.add(moeda['day']);
-      precos.add(moeda['week']);
-      precos.add(moeda['month']);
-      precos.add(moeda['year']);
-      precos.add(moeda['all']);
+      precos.addAll({moeda['hour'],moeda['day'], moeda['week'], moeda['month'], moeda['year'], moeda['all']});
+
     }
 
     return precos;
   }
 
-  Future<List<Moeda>> setupDadosTableMoeda() async {
+  Future<List<Coin>> setupDadosTableMoeda() async {
     String uri = 'https://api.coinbase.com/v2/assets/search?base=BRL';
 
     final response = await http.get(Uri.parse(uri));
@@ -65,10 +61,10 @@ class MoedaRepository extends ChangeNotifier {
     final List<dynamic> moedas = json['data'];
 
     var parsed = moedas.cast<Map<String, dynamic>>();
-    nova = parsed.map<Moeda>((json) {
-      late Moeda coins;
-      coins = Moeda.fromJson(json);
-      return Moeda.fromJson(json);
+    nova = parsed.map<Coin>((json) {
+      late Coin coins;
+      coins = Coin.fromJson(json);
+      return Coin.fromJson(json);
     }).toList();
 
     return nova;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Moeda {
+class Coin {
   String? baseId;
   String sigla = "";
   String icone;
@@ -8,7 +8,7 @@ class Moeda {
   String preco;
   double variacao;
 
-  Moeda({
+  Coin({
     required this.baseId,
     required this.nome,
     required this.preco,
@@ -17,8 +17,8 @@ class Moeda {
     required this.icone,
   });
 
-  factory Moeda.fromJson(Map<String, dynamic> json) {
-    return Moeda(
+  factory Coin.fromJson(Map<String, dynamic> json) {
+    return Coin(
       baseId: json['id'],
       nome: json['name'],
       sigla: json['symbol'],
