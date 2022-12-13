@@ -23,7 +23,7 @@ class _TestButtonState extends State<TestButton> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(children: [
+      child:
         ElevatedButton(
           onPressed: widget.isActive ? widget.onClick : null,
           style: ButtonStyle(
@@ -35,7 +35,7 @@ class _TestButtonState extends State<TestButton> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-      ]),
+
     );
   }
 }

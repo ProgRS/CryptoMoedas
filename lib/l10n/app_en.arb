@@ -84,6 +84,14 @@
   "namemovement": "Movements",
   "@namemovement": {
     "description": "title of the page wallet"
+  },
+  "nameActive": "Active",
+  "@nameActive": {
+    "description": "title of the page wallet"
+  },
+  "nameDisable": "Disable",
+  "@nameDisable": {
+    "description": "title of the page wallet"
   }
 
 }
