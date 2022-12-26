@@ -1,33 +1,47 @@
 
 
 
-import 'package:aula_01/models/coin.dart';
-import 'package:aula_01/repositories/coin_repository.dart';
-
+import 'package:dio/dio.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/testing.dart';
-import 'package:mockito/annotations.dart';
-//import 'package:mocktail/mocktail.dart';
-import 'package:http/http.dart' as http;
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
+import 'api_factory.dart';
 
-//import 'coin_repository_test.mocks.dart';
-import 'package:http/src/mock_client.dart';
+class DioMock extends Mock implements Dio {}
 
+void main() {
+  late Response<List<Map<String, dynamic>>> success;
+  late DioMock dioMock;
+  late CryptosEndpoint endpoint;
 
-class MockClient extends Mock implements http.Client {
-
-}
-
-
-void main(){
-
-  group('fetchMoeda', (){
-        test('return moeda is a requisição foi efetuada com sucesso', () async {
-           final client = MockClient();
-           when(() async => client.get(Uri.parse('https://api.coinbase.com/v2/assets/search?base=BRL')));
-
-        });
-
+  When mockGetResponse() => when(() {
+    return dioMock.get(
+      any(),
+      queryParameters: any(named: 'queryParameters'),
+    );
   });
+
+  mockResponse(List<Map<String, dynamic>> factory, int statusCode) {
+    return Response(
+      data: factory,
+      statusCode: statusCode,
+      requestOptions: RequestOptions(
+        path: faker.internet.httpUrl(),
+      ),
+    );
+  }
+
+  setUp(() {
+    dioMock = DioMock();
+    endpoint = CryptosEndpoint(dioMock);
+    success = mockResponse(ApiFactory.getCryptoList(), 200);
+  });
+
+  test('WHEN requisition is made THEN ensure it returns the status code',
+          () async {
+        mockGetResponse().thenAnswer((_) async => success);
+        final result = await endpoint.getCryptoList();
+        expect(result.statusCode, (200));
+        expect(result, success);
+      });
 }

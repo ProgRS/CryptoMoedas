@@ -43,7 +43,7 @@ void main(){
    });
 
    test('Teste', () async {
-     when((async) => moeda.getHistoricoMoeda(coinTest));
+     when(() => moeda.getHistoricoMoeda(coinTest));
      final list = await repository.getHistoricoMoeda(coinTest);
      expect(list, equals([]));
 
@@ -51,7 +51,7 @@ void main(){
    });
 
    test('Teste Lista', () async {
-     when((async) => moeda.setupDadosTableMoeda());
+     when(() => moeda.setupDadosTableMoeda());
      final list = await repository.setupDadosTableMoeda();
      expect(list.isNotEmpty, equals(true));
      expect(list[0].nome, equals("Bitcoin"));
